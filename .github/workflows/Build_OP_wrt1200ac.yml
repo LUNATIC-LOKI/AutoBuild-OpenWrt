@@ -1,8 +1,8 @@
 #=================================================
 # Description: Build OpenWrt using GitHub Actions
 # Lisence: MIT
-# 原作者: eSirPlayground
-# 本脚本修改者：dunkeng
+# 脭颅脳梅脮脽: eSirPlayground
+# 卤戮陆脜卤戮脨脼赂脛脮脽拢潞dunkeng
 #=================================================
 
 name: Build_wrt1200ac
@@ -91,8 +91,16 @@ jobs:
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
+    - name: Assemble artifact
+      run: |
+        rm -rf ./artifact/
+        mkdir -p ./artifact/
+        find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+        find ./bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./artifact/
+        find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
+          
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
         name: OpenWrt
-        path: openwrt/bin
+        path: ./artifact/
