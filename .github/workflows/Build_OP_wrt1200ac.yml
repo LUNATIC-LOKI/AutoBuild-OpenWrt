@@ -84,6 +84,7 @@ jobs:
         du -h --max-depth=1 ./bin
 
     - name: Assemble artifact
+      working-directory: ./openwrt
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
@@ -92,6 +93,7 @@ jobs:
         find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
           
     - name : Upload artifact
+      working-directory: ./openwrt
       uses: actions/upload-artifact@master
       with:
         name: OpenWrt
