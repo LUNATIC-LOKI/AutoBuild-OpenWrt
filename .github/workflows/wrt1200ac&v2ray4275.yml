@@ -1,4 +1,4 @@
-name: Build_wrt1200ac&v2ray4.27.5
+name: Build_wrt1200ac_v2ray_4_27_5
 
 on: 
   release:
