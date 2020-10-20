@@ -57,6 +57,8 @@ jobs:
         sed -i 's|^#||' ./feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a
+        git checkout 4a96f98ecddf30cc8663c3be9e3292c17469b288 package/lean/v2ray-plugin/Makefile
+        git checkout 622c204290afbe6c127b8ae45d8f20a69a78906e package/lean/v2ray/Makefile
     - name: Configuration Customization - Build_wrt1200ac
       run: |
         cp -f wrt1200ac.config openwrt/.config
@@ -66,8 +68,6 @@ jobs:
     - name: Download package
       working-directory: ./openwrt
       run: |
-        git checkout 4a96f98ecddf30cc8663c3be9e3292c17469b288 package/lean/v2ray-plugin/Makefile
-        git checkout 622c204290afbe6c127b8ae45d8f20a69a78906e package/lean/v2ray/Makefile
         make download -j8
         find dl -size -1024c -exec rm -f {} \;
     - name: Build firmware
@@ -89,7 +89,7 @@ jobs:
         rm -rf ./artifact/
         mkdir -p ./artifact/
         # find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
-        find ./bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./artifact/
+        # find ./bin/targets/ -name "*factory*img*" | xargs -i mv -f {} ./artifact/
         find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
           
     - name : Upload artifact
