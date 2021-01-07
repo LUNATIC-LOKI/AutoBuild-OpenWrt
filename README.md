@@ -1,3 +1,6 @@
+forked from esirplayground/AutoBuild-OpenWrt
+这个是给我自己的wrt1200ac用的
+
 # AutoBuild-OpenWrt
 
 Build OpenWrt firware [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) using GitHub Actions  
