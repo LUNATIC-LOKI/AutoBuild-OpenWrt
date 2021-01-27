@@ -1,4 +1,4 @@
-name: Build_wrt1200ac
+name: Build_wrt1200acIPV4
 
 on: 
   release:
