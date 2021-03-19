@@ -74,7 +74,7 @@ jobs:
       working-directory: ./openwrt
       run: |
         echo -e "$(nproc) thread build."
-     #   make -j$(nproc) V=s
+        # make -j$(nproc) V=s
         make -j$(nproc)
         echo "======================="
         echo "Space usage:"
