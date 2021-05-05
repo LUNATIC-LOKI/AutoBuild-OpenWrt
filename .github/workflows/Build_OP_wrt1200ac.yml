@@ -64,11 +64,11 @@ jobs:
         chmod +x ./customize_wrt1200ac.sh && ./customize_wrt1200ac.sh
         cd openwrt && make defconfig
         
-    #- name: Download package
-    #  working-directory: ./openwrt
-    #  run: |
-    #    make download -j8
-    #    find dl -size -1024c -exec rm -f {} \;
+    - name: Download package
+      working-directory: ./openwrt
+      run: |
+        make download -j8
+        find dl -size -1024c -exec rm -f {} \;
 
     - name: Build firmware
       working-directory: ./openwrt
