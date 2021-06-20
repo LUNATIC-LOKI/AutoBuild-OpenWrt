@@ -54,7 +54,7 @@ jobs:
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
-        sed -i 's|^#||' ./feeds.conf.default
+        echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a
 
