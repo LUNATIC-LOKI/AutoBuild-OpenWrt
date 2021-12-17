@@ -29,31 +29,24 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         docker rmi `docker images -q`
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
+        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
         sudo -E apt-get update
         curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh | sudo bash
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-        # 利用挂载在 /mnt/ 的 14G 额外空间:
-        # sudo mkdir -p -m 777 /mnt/openwrt/bin /mnt/openwrt/build_dir/host /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir
-        # ln -s /mnt/openwrt/bin ./bin
-        # mkdir -p ./build_dir/host && ln -s /mnt/openwrt/build_dir/host ./build_dir/host
-        # mkdir -p ./build_dir/host && ln -s /mnt/openwrt/build_dir/hostpkg ./build_dir/hostpkg
-        # ln -s /mnt/openwrt/dl ./dl
-        # ln -s /mnt/openwrt/feeds ./feeds
-        # ln -s /mnt/openwrt/staging_dir ./staging_dir
         df -h
           
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/immortalwrt/immortalwrt
+        REPO_URL: git://github.com/immortalwrt/immortalwrt
         REPO_BRANCH: master
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
+        perl -pi -e 's/https/git/' ./feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a
     - name: Configuration Customization - Build_immwrt1200ac
